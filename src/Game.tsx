@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./Game.css"
 
 interface Movement {
 	column: number
@@ -122,7 +123,7 @@ export class Game extends React.Component<{}, GameState> {
 
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move #" + move : "Go to game start"
-      return <li key={move}>
+      return <li key={move} className={ this.state.stepNumber == move ? "boldStyle" : "" }>
         <button onClick={() => this.jumpTo(move)}>
           {desc}
         </button>
