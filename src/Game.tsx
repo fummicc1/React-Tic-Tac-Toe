@@ -39,23 +39,23 @@ class Board extends React.Component<BoardProps, BoardState> {
   }
 
   render() {
+
+	let rows: React.ReactNode[] = []
+
+	for (let i = 0; i < 3; i++) {
+
+		let container: React.ReactNode = <div className="board-row">
+			{[0, 1, 2].map(index => i * 3 + index).map(index => {
+				return this.renderSquare(index)
+			})}
+		</div>
+
+		rows.push(container)
+	}
+
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+		  { rows }
       </div>
     );
   }
