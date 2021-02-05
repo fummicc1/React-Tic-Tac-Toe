@@ -1,7 +1,13 @@
 import * as React from "react";
 
+interface Movement {
+	column: number
+	row: number
+	isX: boolean
+}
+
 interface GameState {
-  history: Array<{ squares: string[] }>
+  history: Array<{ squares: string[], lastMovement: Movement | null }>
   stepNumber: number
   xIsNext: boolean
 }
@@ -61,6 +67,7 @@ export class Game extends React.Component<{}, GameState> {
     this.state = {
       history: [{
         squares: Array(9).fill(""),
+		lastMovement: null
       }],
       stepNumber: 0,
       xIsNext: true
@@ -78,7 +85,8 @@ export class Game extends React.Component<{}, GameState> {
     console.log(squares)
     this.setState({
       history: history.concat([{
-        squares: squares
+        squares: squares,
+		lastMovement: { column: i % 3, row: Math.floor(i / 3), isX: !this.state.xIsNext }
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
@@ -118,6 +126,9 @@ export class Game extends React.Component<{}, GameState> {
         <button onClick={() => this.jumpTo(move)}>
           {desc}
         </button>
+		<ol>
+			(column: { history[move].lastMovement?.column }, row: {history[move].lastMovement?.row})
+		</ol>
       </li> 
     })
 
